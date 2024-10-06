@@ -21,22 +21,28 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Scoped in typesetted content to match specificity of regular content
+.md-typeset {
+
+  // [tablet +]: Allow for rendering content as sidebars
+  @include break-from-device(tablet) {
+
+    // Modifier to float block elements
+    .inline {
+      float: inline-start;
+      width: px2rem(234px);
+      margin-inline-end: px2rem(16px);
+      margin-top: 0;
+      margin-bottom: px2rem(16px);
+
+      // Modifier to move to end (ltr: right, rtl: left)
+      &.end {
+        float: inline-end;
+        margin-inline: px2rem(16px) 0;
+      }
+    }
+  }
+}

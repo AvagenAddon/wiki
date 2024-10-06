@@ -21,22 +21,53 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Status variables
+:root {
+  --md-status: svg-load("material/information-outline.svg");
+  --md-status--new: svg-load("material/alert-decagram.svg");
+  --md-status--deprecated: svg-load("material/trash-can.svg");
+  --md-status--encrypted: svg-load("material/shield-lock.svg");
+}
+
+// ----------------------------------------------------------------------------
+
+// Status
+.md-status {
+
+  // Status icon
+  &::after {
+    display: inline-block;
+    width: px2em(18px);
+    height: px2em(18px);
+    vertical-align: text-bottom;
+    content: "";
+    background-color: var(--md-default-fg-color--light);
+    mask-image: var(--md-status);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+  }
+
+  // Status icon on hover
+  &:hover::after {
+    background-color: currentcolor;
+  }
+
+  // Status: new
+  &--new::after {
+    mask-image: var(--md-status--new);
+  }
+
+  // Status: deprecated
+  &--deprecated::after {
+    mask-image: var(--md-status--deprecated);
+  }
+
+  // Status: encrypted
+  &--encrypted::after {
+    mask-image: var(--md-status--encrypted);
+  }
+}

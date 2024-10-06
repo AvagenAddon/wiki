@@ -21,22 +21,65 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Pagination
+.md-pagination {
+  display: flex;
+  gap: px2rem(8px);
+  align-items: center;
+  justify-content: center;
+  font-size: px2rem(16px);
+  font-weight: 700;
+
+  // Pagination item
+  > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: px2rem(36px);
+    height: px2rem(36px);
+    text-align: center;
+    border-radius: px2rem(4px);
+  }
+
+  // Active pagination item
+  &__current {
+    color: var(--md-default-fg-color--light);
+    background-color: var(--md-default-fg-color--lightest);
+  }
+
+  // Pagination link
+  &__link {
+    transition:
+      color            125ms,
+      background-color 125ms;
+
+    // Pagination link on focus/hover
+    &:is(:focus, :hover) {
+      color: var(--md-accent-fg-color);
+      background-color: var(--md-accent-fg-color--transparent);
+
+      // Pagination icon
+      svg {
+        color: var(--md-accent-fg-color);
+      }
+    }
+
+    // Show outline for keyboard devices
+    &.focus-visible {
+      outline-color: var(--md-accent-fg-color);
+      outline-offset: px2rem(4px);
+    }
+
+    // Pagination icon
+    svg {
+      display: block;
+      width: px2rem(24px);
+      max-height: 100%;
+      color: var(--md-default-fg-color--lighter);
+      fill: currentcolor;
+    }
+  }
+}

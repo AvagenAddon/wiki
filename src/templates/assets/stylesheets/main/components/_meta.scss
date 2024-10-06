@@ -21,22 +21,47 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Metadata
+.md-meta {
+  font-size: px2rem(14px);
+  line-height: 1.3;
+  color: var(--md-default-fg-color--light);
+
+  // Metadata list
+  &__list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  // Metadata item separator
+  &__item:not(:last-child)::after {
+    margin-inline: px2rem(4px);
+    content: "·";
+  }
+
+  // Metadata link
+  &__link {
+    color: var(--md-typeset-a-color);
+
+    // Metadata link on focus/hover
+    &:is(:focus, :hover) {
+      color: var(--md-accent-fg-color);
+    }
+  }
+}
+
+// Draft
+.md-draft {
+  display: inline-block;
+  padding-inline: px2em(8px, 14px);
+  font-weight: 700;
+  color: hsla(255, 100%, 100%);
+  background-color: $clr-red-a400;
+  border-radius: px2em(2px);
+}

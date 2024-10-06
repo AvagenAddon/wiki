@@ -21,22 +21,33 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Progress variables
+:root {
+  --md-progress-value: 0;
+  --md-progress-delay: 400ms;
+}
+
+// ----------------------------------------------------------------------------
+
+// Progress indicator
+.md-progress {
+  position: fixed;
+  top: 0;
+  z-index: 4;
+  width: 100%;
+  height: px2rem(1.5px);
+  background: var(--md-primary-bg-color);
+  opacity:
+    min(
+      clamp(0, var(--md-progress-value), 1),
+      clamp(0, 100 - var(--md-progress-value), 1)
+    );
+  transition:
+    transform 500ms cubic-bezier(0.19, 1, 0.22, 1),
+    opacity   250ms var(--md-progress-delay);
+  transform: scaleX(calc(var(--md-progress-value) * 1%));
+  transform-origin: left;
+}

@@ -21,22 +21,48 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Banner for announcements and warnings
+.md-banner {
+  overflow: auto;
+  color: var(--md-footer-fg-color);
+  background-color: var(--md-footer-bg-color);
+
+  // [print]: Hide banner
+  @media print {
+    display: none;
+  }
+
+  // Banner with warning
+  &--warning {
+    color: var(--md-warning-fg-color);
+    background-color: var(--md-warning-bg-color);
+  }
+
+  // Banner wrapper
+  &__inner {
+    padding: 0 px2rem(16px);
+    margin: px2rem(12px) auto;
+    font-size: px2rem(14px);
+  }
+
+  // Banner button
+  &__button {
+    float: inline-end;
+    color: inherit;
+    cursor: pointer;
+    transition: opacity 250ms;
+
+    // [no-js]: Hide button
+    .no-js & {
+      display: none;
+    }
+
+    // Button on hover
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

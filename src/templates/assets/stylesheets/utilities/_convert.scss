@@ -20,23 +20,60 @@
 /// DEALINGS
 ////
 
+@use "sass:math";
+
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Helpers
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+///
+/// Strip units from a number
+///
+@function strip-units($number) {
+  @return math.div($number, ($number * 0 + 1));
+}
+
+///
+/// Convert color in HEX to HSL
+///
+/// Note, that we need to strip the `deg` units from the `hue` value, as they
+/// were added in Color Level 4, which not all browsers support.
+///
+@function hex2hsl($color) {
+  @return
+    round(strip-units(hue($color))),
+    round(saturation($color)),
+    round(lightness($color));
+}
+
+// ----------------------------------------------------------------------------
+
+///
+/// Convert font size in px to em
+///
+@function px2em($size, $base: 16px) {
+  @if unit($size) == px {
+    @if unit($base) == px {
+      @return math.div($size, $base) * 1em;
+    } @else {
+      @error "Invalid base: #{$base} - unit must be 'px'";
+    }
+  } @else {
+    @error "Invalid size: #{$size} - unit must be 'px'";
+  }
+}
+
+///
+/// Convert font size in px to rem
+///
+@function px2rem($size, $base: 20px) {
+  @if unit($size) == px {
+    @if unit($base) == px {
+      @return math.div($size, $base) * 1rem;
+    } @else {
+      @error "Invalid base: #{$base} - unit must be 'px'";
+    }
+  } @else {
+    @error "Invalid size: #{$size} - unit must be 'px'";
+  }
+}

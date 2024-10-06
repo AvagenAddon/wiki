@@ -21,22 +21,56 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Scoped in typesetted content to match specificity of regular content
+.md-typeset {
+
+  // Deletion
+  del.critic {
+    background-color: var(--md-typeset-del-color);
+    box-decoration-break: clone;
+  }
+
+  // Addition
+  ins.critic {
+    background-color: var(--md-typeset-ins-color);
+    box-decoration-break: clone;
+  }
+
+  // Comment
+  .critic.comment {
+    color: var(--md-code-hl-comment-color);
+    box-decoration-break: clone;
+
+    // Comment opening mark
+    &::before {
+      content: "/* ";
+    }
+
+    // Comment closing mark
+    &::after {
+      content: " */";
+    }
+  }
+
+  // Critic block
+  .critic.block {
+    display: block;
+    padding-inline: px2rem(16px);
+    margin: 1em 0;
+    overflow: auto;
+    box-shadow: none;
+
+    // Adjust spacing on first child
+    > :first-child {
+      margin-top: 0.5em;
+    }
+
+    // Adjust spacing on last child
+    > :last-child {
+      margin-bottom: 0.5em;
+    }
+  }
+}

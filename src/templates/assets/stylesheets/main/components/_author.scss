@@ -21,22 +21,66 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Scoped in typesetted content to match specificity of regular content
+.md-typeset {
+
+  // Author, i.e., GitHub user
+  .md-author {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+    width: px2rem(32px);
+    height: px2rem(32px);
+    overflow: hidden;
+    border-radius: 100%;
+    transition:
+      color 125ms,
+      transform 125ms;
+
+    // Author image
+    img {
+      display: block;
+    }
+
+    // More authors
+    &--more {
+      font-size: px2rem(12px);
+      font-weight: 700;
+      line-height: px2rem(32px);
+      color: var(--md-default-fg-color--lighter);
+      text-align: center;
+      background: var(--md-default-fg-color--lightest);
+    }
+
+    // Enlarge image
+    &--long {
+      width: px2rem(48px);
+      height: px2rem(48px);
+    }
+  }
+
+  // Author link
+  a.md-author {
+    transform: scale(1);
+
+    // Author image
+    img {
+      filter: grayscale(100%) opacity(75%);
+      transition: filter 125ms;
+    }
+
+    // Author on focus/hover
+    &:is(:focus, :hover) {
+      z-index: 1;
+      transform: scale(1.1);
+
+      // Author image
+      img {
+        filter: grayscale(0%);
+      }
+    }
+  }
+}

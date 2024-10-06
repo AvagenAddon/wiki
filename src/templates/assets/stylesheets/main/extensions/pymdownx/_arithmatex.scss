@@ -21,22 +21,42 @@
 ////
 
 // ----------------------------------------------------------------------------
-// Variables: breakpoints
+// Rules
 // ----------------------------------------------------------------------------
 
-// Device-specific breakpoints
-$break-devices: (
-  mobile: (
-    portrait:  px2em(220px)  px2em(479.75px),
-    landscape: px2em(480px)  px2em(719.75px)
-  ),
-  tablet: (
-    portrait:  px2em(720px)  px2em(959.75px),
-    landscape: px2em(960px)  px2em(1219.75px)
-  ),
-  screen: (
-    small:     px2em(1220px) px2em(1599.75px),
-    medium:    px2em(1600px) px2em(1999.75px),
-    large:     px2em(2000px)
-  )
-);
+// Scoped in typesetted content to match specificity of regular content
+.md-typeset {
+
+  // Arithmatex container
+  div.arithmatex {
+    overflow: auto;
+
+    // [mobile -]: Align with body copy
+    @include break-to-device(mobile) {
+      margin: 0 px2rem(-16px);
+
+      // Arithmatex content
+      > * {
+        width: min-content;
+      }
+    }
+
+    // Arithmatex content
+    > * {
+      padding: 0 px2rem(16px);
+      margin-inline: auto !important; // stylelint-disable-line
+      touch-action: auto;
+
+      // MathJax container - see https://bit.ly/3HR8YJ5
+      mjx-container {
+        margin: 0 !important; // stylelint-disable-line
+      }
+    }
+
+    // Prevent horizontal overflow, as this element is not visible but still has
+    // a height, which might be a bug in MathJax - see https://t.ly/ckPiA
+    mjx-assistive-mml {
+      height: 0;
+    }
+  }
+}
